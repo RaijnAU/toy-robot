@@ -1,68 +1,64 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Toy Robot Simulator
+--------------------
+Create a library that can read in commands of the following form:
 
-## Available Scripts
+PLACE X,Y,DIRECTION;
+MOVE;
+LEFT;
+RIGHT;
+REPORT
 
-In the project directory, you can run:
+- The library allows for a simulation of a toy robot moving on a 5 x 5 square tabletop.
 
-### `npm start`
+- There are no obstructions on the table surface.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- The robot is free to roam around the surface of the table, but must be prevented from falling to destruction. Any movement that would result in this must be prevented, however further valid movement commands must still be allowed.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+- PLACE will put the toy robot on the table in position X,Y and facing NORTH, SOUTH, EAST or WEST.
 
-### `npm test`
+- (0,0) can be considered as the SOUTH WEST corner and (4,4) as the NORTH EAST corner.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- The first valid command to the robot is a PLACE command. After that, any sequence of commands may be issued, in any order, including another PLACE command. The library should discard all commands in the sequence until a valid PLACE command has been executed.
 
-### `npm run build`
+- The PLACE command should be discarded if it places the robot outside of the table surface.
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- MOVE will move the toy robot one unit forward in the direction it is currently facing.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+- LEFT and RIGHT will rotate the robot 90 degrees in the specified direction without changing the position of the robot.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- REPORT will announce the X,Y and orientation of the robot.
 
-### `npm run eject`
+- A robot that is not on the table can choose to ignore the MOVE, LEFT, RIGHT and REPORT commands.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+- The library should discard all invalid commands and parameters.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Example Input and Output:
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+a)
+PLACE 0,0,NORTH;
+MOVE;
+REPORT;
+Output: 0,1,NORTH
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+b)
+PLACE 0,0,NORTH;
+LEFT;
+REPORT;
+Output: 0,0,WEST
 
-## Learn More
+c)
+PLACE 1,2,EAST;
+MOVE;
+MOVE;
+LEFT;
+MOVE;
+REPORT;
+Output: 3,3,NORTH
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- Use your preferred language, platform and IDE to implement this solution.
+- Your solution should be clean and easy to read, maintain and execute.
+- There must be a way to supply the library with input data.
+- Writing an interface (command prompt or otherwise) is not mandatory.
+- You should provide sufficient evidence that your solution is complete by, as a minimum, indicating that it works correctly against the supplied test data.
+- You should provide build scripts or instructions to build and verify the solution.
+- The code should be original and you may not use any external libraries or open source code to solve this problem, but you may use external libraries or tools for building or testing purposes.
