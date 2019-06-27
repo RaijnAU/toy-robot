@@ -1,25 +1,43 @@
-import {left, move, place, report, right} from './api/index';
+import {execute} from './api/index';
 
 describe('robot works', () => {
-    test('test1', () => {
-        const first = place(0, 0, 'north');
-        const next = move(first);
-        const output = report(next);
-        expect(output).toBe('0,1,NORTH');
-    });
-    test('test2', () => {
-        const first = place(0, 0, 'north');
-        const next = left(first);
-        const output = report(next);
-        expect(output).toBe('0,0,WEST');
-    });
-    test('test3', () => {
-        const first = place(1, 2, 'east');
-        const next1 = move(first);
-        const next2 = move(next1);
-        const next3 = left(next2);
-        const next4 = move(next3);
-        const output = report(next4);
-        expect(output).toBe('3,3,NORTH');
+    test('puzzle requirements', () => {
+        expect(execute(['PLACE 0,0,NORTH', 'MOVE', 'REPORT'])).toBe(
+            '0,1,NORTH'
+        );
+
+        expect(execute(['PLACE 0,0,NORTH', 'LEFT', 'REPORT'])).toBe('0,0,WEST');
+
+        expect(
+            execute([
+                'PLACE 1,2,EAST',
+                'MOVE',
+                'MOVE',
+                'LEFT',
+                'MOVE',
+                'REPORT',
+            ])
+        ).toBe('3,3,NORTH');
+
+        // Ignore commands until placed
+        expect(
+            execute([
+                'MOVE',
+                'LEFT',
+                'RIGHT',
+                'MOVE',
+                'PLACE 2,2,EAST',
+                'MOVE',
+                'REPORT',
+            ])
+        ).toBe('3,2,EAST');
+
+        // Attempt to walk off board
+        expect(
+            execute(['PLACE 0,0,WEST', 'MOVE', 'LEFT', 'MOVE', 'REPORT'])
+        ).toBe('0,0,SOUTH');
+        expect(
+            execute(['PLACE 4,4,NORTH', 'MOVE', 'RIGHT', 'MOVE', 'REPORT'])
+        ).toBe('4,4,EAST');
     });
 });
