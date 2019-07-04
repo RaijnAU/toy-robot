@@ -2,20 +2,61 @@ body {
     margin: 20px;
 }
 
-.table-row {
-    display: table;
+.container {
+    display: grid;
+    justify-content: space-evenly;
+}
+
+.robot-report {
+    margin: auto;
+    padding-top: 15px;
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.table {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: 50%;
+}
+
+.has-robot {
+    background-image: url('./img/arrow.png');
+    background-repeat: no-repeat;
+    background-size: 96px;
+}
+
+.has-robot.north {
+    transform: rotate(-90deg);
+}
+
+.has-robot.east {
+    transform: rotate(0deg);
+}
+
+.has-robot.south {
+    transform: rotate(90deg);
+}
+
+.has-robot.west {
+    transform: rotate(180deg);
 }
 
 .square {
-    background: #fff;
     border: 1px solid #999;
     float: left;
-    font-size: 24px;
+    font-size: 36px;
     font-weight: bold;
-    line-height: 64px;
-    height: 64px;
+    line-height: 96px;
+    height: 96px;
     margin: -1px;
     padding: 0;
     text-align: center;
-    width: 64px;
+    width: 96px;
 }
+
+/* @media screen and (min-width: 900px) {
+    .robot-report {
+        padding: 10% 15%;
+    }
+} */
