@@ -1,4 +1,4 @@
-import {left, move, place, report, right} from '../api/index';
+import {left, move, place, right} from '../api/index';
 import React, {useState} from 'react';
 import Report from './Report';
 import Square from './Square';
@@ -15,8 +15,19 @@ const Table = () => {
 
     const onClick = ({x, y}) => setPosition(place(x, y, 'north'));
 
+    const onKeyDown = e =>
+        e.key === 'ArrowLeft'
+            ? setPosition(left(position))
+            : e.key === 'ArrowRight'
+            ? setPosition(right(position))
+            : e.key === 'ArrowUp'
+            ? setPosition(move(position))
+            : null;
+
+    const handleReset = () => setPosition(null);
+
     return (
-        <div className="container">
+        <div className="container" onKeyDown={onKeyDown} tabIndex={-1}>
             <div className="table">
                 {squares.map((coord, index) => (
                     <Square
@@ -28,6 +39,9 @@ const Table = () => {
                 ))}
             </div>
             <Report position={position} />
+            <button className="reset" onClick={handleReset} type="button">
+                Reset
+            </button>
         </div>
     );
 };
