@@ -18,7 +18,7 @@ const Square = ({coord, onClick, position}) => {
 Square.propTypes = {
     coord: PropTypes.object.isRequired,
     onClick: PropTypes.func.isRequired,
-    position: PropTypes.object.isRequired,
+    position: PropTypes.object,
 };
 
 export default Square;

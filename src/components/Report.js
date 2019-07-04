@@ -7,7 +7,7 @@ const Report = ({position}) => (
 );
 
 Report.propTypes = {
-    position: PropTypes.string.isRequired,
+    position: PropTypes.object,
 };
 
 export default Report;

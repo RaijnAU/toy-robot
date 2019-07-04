@@ -13,7 +13,7 @@ const Table = () => {
         }
     }
 
-    const onClick = ({x, y}) => setPosition(place(x, y, 'NORTH'));
+    const onClick = ({x, y}) => setPosition(place(x, y, 'north'));
 
     return (
         <div className="container">
