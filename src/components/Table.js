@@ -1,4 +1,4 @@
-import {left, move, place, right} from '../api/index';
+import {left, move, place, reverse, right} from '../api/index';
 import React, {useState} from 'react';
 import Report from './Report';
 import Square from './Square';
@@ -22,6 +22,8 @@ const Table = () => {
             ? setPosition(right(position))
             : e.key === 'ArrowUp'
             ? setPosition(move(position))
+            : e.key === 'ArrowDown'
+            ? setPosition(reverse(position))
             : null;
 
     const handleReset = () => setPosition(null);

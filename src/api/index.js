@@ -39,6 +39,21 @@ export const move = currentPosition => {
 };
 
 /*
+Moves the robot backward 1 position in the direction it's facing. If the robot is not on the table, then the function returns null (this will occur for every function below). If the robot is at the edge of the table and therefore unable to move, the function will return the current position.
+*/
+export const reverse = currentPosition => {
+    if (!currentPosition) {
+        return null;
+    }
+    const {x, y, direction} = currentPosition;
+    const nextX =
+        direction === 'east' ? x - 1 : direction === 'west' ? x + 1 : x;
+    const nextY =
+        direction === 'north' ? y - 1 : direction === 'south' ? y + 1 : y;
+    return place(nextX, nextY, direction) || currentPosition;
+};
+
+/*
 For each of the left/right functions below, the robot's direction is changed accordingly.
 */
 export const left = currentPosition => {
