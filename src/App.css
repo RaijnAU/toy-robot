@@ -25,9 +25,16 @@ body {
 }
 
 .has-robot {
-    background-image: url('./img/arrow.png');
     background-repeat: no-repeat;
     background-size: 88px;
+}
+
+.has-robot.black {
+    background-image: url('./img/arrow1.png');
+}
+
+.has-robot.pink {
+    background-image: url('./img/arrow2.png');
 }
 
 .has-robot.north {
