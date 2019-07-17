@@ -4,10 +4,9 @@ isPositionValid determines if the location parameters inputted are a valid locat
 export const isPositionValid = ({x, y, direction}, otherRobot) => {
     const validLocations = [0, 1, 2, 3, 4];
     const validDirections = ['north', 'south', 'east', 'west'];
-    if (otherRobot) {
-        if (x === otherRobot.x && y === otherRobot.y) {
+    if (otherRobot && x === otherRobot.x && y === otherRobot.y) {
         return null;
-    }}
+    }
     return (
         validLocations.includes(x) &&
         validLocations.includes(y) &&
