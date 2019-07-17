@@ -1,9 +1,12 @@
 /*
 isPositionValid determines if the location parameters inputted are a valid location on the table. This is done by having an array of the available squares in the grid and another with the permissible directions. This then returns a boolean value of true or false depending if the input position is valid.
 */
-export const isPositionValid = ({x, y, direction}) => {
+export const isPositionValid = ({x, y, direction}, otherRobot) => {
     const validLocations = [0, 1, 2, 3, 4];
     const validDirections = ['north', 'south', 'east', 'west'];
+    if (otherRobot && x === otherRobot.x && y === otherRobot.y) {
+        return null;
+    }
     return (
         validLocations.includes(x) &&
         validLocations.includes(y) &&
@@ -14,8 +17,8 @@ export const isPositionValid = ({x, y, direction}) => {
 /*
 Place returns the entered inputted direction after passing it to isPositionValid to determine it's allowed. If the inputting place is not a valid position, the function simply returns null.
 */
-export const place = (x, y, direction) =>
-    isPositionValid({x, y, direction})
+export const place = (x, y, direction, otherRobot) =>
+    isPositionValid({x, y, direction}, otherRobot)
         ? {
               x,
               y,
@@ -26,7 +29,7 @@ export const place = (x, y, direction) =>
 /*
 Moves the robot forward 1 position in the direction it's facing. If the robot is not on the table, then the function returns null (this will occur for every function below). If the robot is at the edge of the table and therefore unable to move, the function will return the current position.
 */
-export const move = currentPosition => {
+export const move = (currentPosition, otherRobot) => {
     if (!currentPosition) {
         return null;
     }
@@ -35,7 +38,23 @@ export const move = currentPosition => {
         direction === 'east' ? x + 1 : direction === 'west' ? x - 1 : x;
     const nextY =
         direction === 'north' ? y + 1 : direction === 'south' ? y - 1 : y;
-    return place(nextX, nextY, direction) || currentPosition;
+
+    return place(nextX, nextY, direction, otherRobot) || currentPosition;
+};
+
+/*
+Moves the robot backward 1 position in the direction it's facing. If the robot is not on the table, then the function returns null (this will occur for every function below). If the robot is at the edge of the table and therefore unable to move, the function will return the current position.
+*/
+export const reverse = (currentPosition, otherRobot) => {
+    if (!currentPosition) {
+        return null;
+    }
+    const {x, y, direction} = currentPosition;
+    const nextX =
+        direction === 'east' ? x - 1 : direction === 'west' ? x + 1 : x;
+    const nextY =
+        direction === 'north' ? y - 1 : direction === 'south' ? y + 1 : y;
+    return place(nextX, nextY, direction, otherRobot) || currentPosition;
 };
 
 /*

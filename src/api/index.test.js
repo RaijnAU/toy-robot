@@ -1,4 +1,4 @@
-import {left, move, place, report, right} from './index';
+import {left, move, place, report, reverse, right} from './index';
 
 describe('toy robot spec', () => {
     test('place', () => {
@@ -59,6 +59,50 @@ describe('toy robot spec', () => {
             direction: 'west',
         });
         expect(move(null)).toBeNull();
+    });
+
+    test('reverse', () => {
+        expect(reverse(place(0, 0, 'north'))).toEqual({
+            x: 0,
+            y: 0,
+            direction: 'north',
+        });
+        expect(reverse(place(1, 1, 'south'))).toEqual({
+            x: 1,
+            y: 2,
+            direction: 'south',
+        });
+        expect(reverse(place(0, 0, 'east'))).toEqual({
+            x: 0,
+            y: 0,
+            direction: 'east',
+        });
+        expect(reverse(place(1, 1, 'west'))).toEqual({
+            x: 2,
+            y: 1,
+            direction: 'west',
+        });
+        expect(reverse(place(4, 4, 'north'))).toEqual({
+            x: 4,
+            y: 3,
+            direction: 'north',
+        });
+        expect(reverse(place(0, 0, 'south'))).toEqual({
+            x: 0,
+            y: 1,
+            direction: 'south',
+        });
+        expect(reverse(place(4, 0, 'east'))).toEqual({
+            x: 3,
+            y: 0,
+            direction: 'east',
+        });
+        expect(reverse(place(0, 0, 'west'))).toEqual({
+            x: 1,
+            y: 0,
+            direction: 'west',
+        });
+        expect(reverse(null)).toBeNull();
     });
 
     test('left', () => {
